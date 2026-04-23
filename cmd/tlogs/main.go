@@ -116,18 +116,18 @@ func (m model) View() string {
 
 	var s strings.Builder
 	if m.state == dateSelectionState {
-		s.WriteString(fmt.Sprintf("Logs for %s/%s\n\n", m.channel, m.username))
+		fmt.Fprintf(&s, "Logs for %s/%s\n\n", m.channel, m.username)
 		s.WriteString("Select date:\n")
 		for i, date := range m.dates {
 			cursor := " "
 			if m.cursor == i {
 				cursor = ">"
 			}
-			s.WriteString(fmt.Sprintf("%s %s\n", cursor, date))
+			fmt.Fprintf(&s, "%s %s\n", cursor, date)
 		}
 		s.WriteString("\n(q to quit)")
 	} else {
-		s.WriteString(fmt.Sprintf("--- Logs for %s (ESC to go back) ---\n", m.selectedDate))
+		fmt.Fprintf(&s, "--- Logs for %s (ESC to go back) ---\n", m.selectedDate)
 		s.WriteString(m.viewport.View())
 		s.WriteString("\n-------------------------------------------")
 	}
